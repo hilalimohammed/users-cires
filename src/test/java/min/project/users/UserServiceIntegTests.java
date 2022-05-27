@@ -1,7 +1,6 @@
 package min.project.users;
 
 import min.project.users.data.dao.UserDao;
-import min.project.users.data.dto.UserDto;
 import min.project.users.data.entities.User;
 import min.project.users.service.JwtService;
 import min.project.users.service.UserService;
@@ -35,14 +34,14 @@ public class UserServiceIntegTests {
     @Test
     public void testLogin() {
 
-        UserDto userOptional = new UserDto();
+        User userOptional = new User();
         userOptional.setUsername("amin");
         userOptional.setEmail("amin@gmail.com");
         userOptional.setPassword(encoder.encode("1234567"));
-        Optional<UserDto> optional = Optional.of(userOptional);
+        Optional<User> optional = Optional.of(userOptional);
 
         Mockito.when(userDao.findByEmailOrUsername("amin@gmail.com", "amin")).thenReturn(optional);
-        UserDto user = null;
+        User user = null;
         if (optional.isPresent()) {
             user = optional.get();
             if (encoder.matches("1234567", user.getPassword())) {
